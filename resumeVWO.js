@@ -10,18 +10,6 @@
 // ==/UserScript==
 
 
-// ==UserScript==
-// @name         VWO CSV Resume
-// @namespace    http://tampermonkey.net/
-// @version      2025-01-29
-// @description  try to take over the world!
-// @author       You
-// @match        https://app.vwo.com/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=vwo.com
-// @grant        none
-// ==/UserScript==
-
-
 (function () {
   // Adicionar estilos CSS
   const style = document.createElement('style');
