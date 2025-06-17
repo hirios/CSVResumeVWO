@@ -677,7 +677,7 @@
 
     // Inserir o novo cabeçalho
     const newTh = document.createElement("th");
-    newTh.textContent = "Soma";
+    newTh.textContent = "Total";
     newTh.style.textAlign = "center";
     thead.querySelector("tr").insertBefore(newTh, headerCells[insertIndex]);
 
