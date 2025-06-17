@@ -767,14 +767,14 @@
 
       button.innerText = 'Copiado!';
       setTimeout(() => {
-        button.innerText = 'Gerar e Copiar CSV';
+        button.innerText = 'Tabela resumo';
         button.disabled = false;
       }, 500);
     } catch (error) {
       console.error('Erro ao processar métricas:', error);
       button.innerText = 'Erro! Tente novamente';
       setTimeout(() => {
-        button.innerText = 'Gerar e Copiar CSV';
+        button.innerText = 'Tabela resumo';
         button.disabled = false;
       }, 3000);
     }
