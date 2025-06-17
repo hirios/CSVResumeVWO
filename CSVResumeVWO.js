@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         VWO CSV Resume
+// @name         VWO Resume
 // @namespace    http://tampermonkey.net/
 // @version      2025-01-29
-// @description  try to take over the world!
-// @author       You
+// @description  Resume informações do VWO em uma tabela 
+// @author       Alan Rios
 // @match        https://app.vwo.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=vwo.com
 // @grant        none
@@ -650,7 +650,7 @@
     });
   }
 
-  function isNumericCell(cellText) {
+   function isNumericCell(cellText) {
     return /^[\d\s.,]+$/.test(cellText) && !cellText.includes('%');
   }
 
@@ -676,7 +676,7 @@
 
     // Inserir o novo cabeçalho
     const newTh = document.createElement("th");
-    newTh.textContent = "Total";
+    newTh.textContent = "Soma";
     newTh.style.textAlign = "center";
     thead.querySelector("tr").insertBefore(newTh, headerCells[insertIndex]);
 
@@ -685,6 +685,7 @@
     rows.forEach(row => {
       const cells = [...row.querySelectorAll("td")];
       let sum = 0;
+      let hasValidValue = false;
 
       cells.forEach((cell, index) => {
         const text = cell.textContent.trim();
@@ -693,15 +694,20 @@
 
         if (!isPTB && !isPvalor && isNumericCell(text)) {
           const num = parseNumber(text);
-          if (!isNaN(num)) sum += num;
+          if (!isNaN(num)) {
+            sum += num;
+            hasValidValue = true;
+          }
         }
       });
 
       const newTd = document.createElement("td");
-      newTd.textContent = sum.toLocaleString("pt-BR", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2,
-      });
+      newTd.textContent = hasValidValue
+        ? sum.toLocaleString("pt-BR", {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2,
+          })
+        : "";
       newTd.style.textAlign = "center";
 
       const refCell = row.children[insertIndex];
@@ -713,13 +719,13 @@
   // Botão Gerar CSV
   const button = document.createElement('button');
   button.className = 'floating-button generate-csv-button';
-  button.innerText = 'Gerar e Copiar CSV';
+  button.innerText = 'Tabela resumo';
   document.body.appendChild(button);
 
   // Botão Dias Experimento
   const buttonDiasExperimento = document.createElement('button');
   buttonDiasExperimento.className = 'floating-button days-experiment-button';
-  buttonDiasExperimento.innerText = 'Dias experimento';
+  buttonDiasExperimento.innerText = 'Dias de experimento';
   document.body.appendChild(buttonDiasExperimento);
 
   buttonDiasExperimento.addEventListener('click', async () => {
